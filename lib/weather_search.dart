@@ -40,7 +40,7 @@ class _WeatherSearchState extends State<WeatherSearch> {
 
     // THIS BLOCK OF CODE TRIES TO FIND THE WOEID
     // UNIQUE IDENTIFIER FOR A CITY
-    var url = "https://www.metaweather.com/api/location/search/?query=${city}";
+    var url = "https://www.metaweather.com/api/location/search/?query=$city";
     var response = await http.get(url);
     var encodedResponse = jsonDecode(response.body);
 
@@ -54,7 +54,7 @@ class _WeatherSearchState extends State<WeatherSearch> {
     // THIS BLOCK OF CODE FINDS THE WEATHER INFORMATION AND PASSES THE RETRIEVED
     // INFO TO THE CALLBACK
     int woeid = encodedResponse[0]['woeid'];
-    String locationURL = "https://www.metaweather.com/api/location/${woeid}/";
+    String locationURL = "https://www.metaweather.com/api/location/$woeid/";
     var locationResponse = await http.get(locationURL);
     var locationEncodedResponse = jsonDecode(locationResponse.body);
 
@@ -64,7 +64,7 @@ class _WeatherSearchState extends State<WeatherSearch> {
     String weatherStatus = locationEncodedResponse['consolidated_weather'][0]
         ['weather_state_abbr'];
     String weatherStatusURL =
-        "https://www.metaweather.com/static/img/weather/png/${weatherStatus}.png";
+        "https://www.metaweather.com/static/img/weather/png/$weatherStatus.png";
 
     // Passing in all of my newly acquired data to the callback
     widget.callback(newCity, newTemp, weatherStatusURL);
